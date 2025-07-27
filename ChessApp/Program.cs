@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Bson;
+using ChessApp.Classes;
 
 //Set Connection URI
 const string uri = "mongodb://localhost:27017";
@@ -11,3 +12,10 @@ var client = new MongoClient(uri);
 var database = client.GetDatabase("ChessDB");
 
 Console.WriteLine("Hello, World! I have successfully connected to the ChessDB");
+
+//Create new chessboard instance; Can Access different games via DB moves or create new game in future implementations
+var chessBoard = new ChessBoard();
+
+//New Game
+chessBoard.InitializeChessBoard();
+chessBoard.PrintChessBoard();
