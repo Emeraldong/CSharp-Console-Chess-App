@@ -30,11 +30,50 @@ public class ChessBoard
     {
         for (int i = 0; i < 8; i++)
         {
+            Console.Write($"{8 - i}");
             for (int j = 0; j < 8; j++)
             {
-                Console.Write($"| {this.chessBoard[i, j]} ");
+                Console.Write($"| ");
+                if (this.chessBoard[i, j] > 6)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                else if (this.chessBoard[i, j] > 0)
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                else
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                char piece = '@';
+                switch (this.chessBoard[i, j] % 6)
+                {
+                    case 1:
+                        piece = 'P';
+                        break;
+                    case 2:
+                        piece = 'R';
+                        break;
+                    case 3:
+                        piece = 'N';
+                        break;
+                    case 4:
+                        piece = 'B';
+                        break;
+                    case 5:
+                        piece = 'Q';
+                        break;
+                    case 6:
+                        break;
+                    case 0:
+                        if (this.chessBoard[i, j] != 0)
+                            piece = 'K';
+                        else
+                            piece = '-';
+                        break;
+
+                }
+                Console.Write($"{piece} ");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine("|");
         }
+        Console.WriteLine("   a   b   c   d   e   f   g   h");
     }
 }
