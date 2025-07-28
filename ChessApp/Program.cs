@@ -17,5 +17,11 @@ Console.WriteLine("Hello, World! I have successfully connected to the ChessDB");
 var chessBoard = new ChessBoard();
 
 //New Game
+chessBoard.InitializeGame();
 chessBoard.InitializeChessBoard();
 chessBoard.PrintChessBoard();
+
+while (true)
+{
+    //Start Accepting Input Here;
+}
