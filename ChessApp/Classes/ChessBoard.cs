@@ -1,6 +1,6 @@
 namespace ChessApp.Classes;
 
-public class ChessBoard
+public class ChessBoard : GameState
 {
     public int[,] chessBoard { get; set; }
 
