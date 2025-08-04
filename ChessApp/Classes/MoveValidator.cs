@@ -74,10 +74,11 @@ public class MoveValidator
         //King = 6          |   King = 12
         //0 means empty space
         int valid = this.CheckMove(fromPiece, fromColInt, fromRowInt, toColInt, toRowInt);
+        //If valid move, implement function to move
         return valid;
     }
 
-    public int CheckMove(int piece, int romColInt, int fromRowInt, int toColInt, int toRowInt)
+    public int CheckMove(int piece, int fromColInt, int fromRowInt, int toColInt, int toRowInt)
     {
         switch (piece % 6)
         {
@@ -87,6 +88,13 @@ public class MoveValidator
                 if (piece > 6)
                 {
                     //White, so pawns move UP; i.e. subtract rows
+                    int difference = fromColInt - toColInt;
+                    //Reject move if moving downwards, more than 2 spaces, 
+                    //or moving more than 1 space when not on starting square.
+                    if (difference < 1 || difference > 2 || (fromColInt != 6 && difference > 1))
+                        return 0;
+                    else
+                        return 1;
                 }
                 else
                 {
