@@ -44,22 +44,56 @@ public class MoveValidator
             var from = move.Substring(0, pieceToMove + 1);
             var to = move.Substring(pieceToMove + 1);
 
-            this.VerifyPiece(from);
+            this.VerifyPiece(from, to);
             Console.WriteLine(from + " to " + to);
         }
         return 1;
     }
 
-    public int VerifyPiece(string square)
+    public int VerifyPiece(string fromSquare, string toSquare)
     {
-        int colInt = this.moveTranslator.First(kvp => kvp.Key == square[0]).Value;
-        Console.WriteLine(this.chessBoard.chessBoard[(int)(8 - char.GetNumericValue(square[1])), colInt]);
-        //No piece found on that tile
-        int piece = this.chessBoard.chessBoard[(int)(8 - char.GetNumericValue(square[1])), colInt];
+        int fromColInt = this.moveTranslator.First(kvp => kvp.Key == fromSquare[0]).Value;
+        int fromRowInt = (int)(8 - char.GetNumericValue(fromSquare[1]));
+        Console.WriteLine(this.chessBoard.chessBoard[fromRowInt, fromColInt]);
 
-        if (piece == 0)
-            return 0;
-        else
-            return 1;
+        int fromPiece = this.chessBoard.chessBoard[fromRowInt, fromColInt];
+
+        int toColInt = this.moveTranslator.First(kvp => kvp.Key == toSquare[0]).Value;
+        int toRowInt = (int)(8 - char.GetNumericValue(toSquare[1]));
+        Console.WriteLine(this.chessBoard.chessBoard[toRowInt, toColInt]);
+
+        int toPiece = this.chessBoard.chessBoard[toRowInt, toColInt];
+
+
+        //Black pieces:     |   White pieces:
+        //Pawn = 1          |   Pawn = 7
+        //Rook = 2          |   Rook = 8
+        //Knight = 3        |   Knight = 9
+        //Bishop = 4        |   Bishop = 10
+        //Queen = 5         |   Queen = 11
+        //King = 6          |   King = 12
+        //0 means empty space
+        int valid = this.CheckMove(fromPiece, fromColInt, fromRowInt, toColInt, toRowInt);
+        return valid;
+    }
+
+    public int CheckMove(int piece, int romColInt, int fromRowInt, int toColInt, int toRowInt)
+    {
+        switch (piece % 6)
+        {
+            //Pawn
+            case 1:
+                //Less than 6 means black, greater than 6 means white
+                if (piece > 6)
+                {
+                    //White, so pawns move UP; i.e. subtract rows
+                }
+                else
+                {
+                    //Black, pawns move DOWN, i.e. add rows
+                }
+                return 1;
+        }
+        return 0;
     }
 }
