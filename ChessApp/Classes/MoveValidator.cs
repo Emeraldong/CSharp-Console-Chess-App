@@ -44,10 +44,12 @@ public class MoveValidator
             var from = move.Substring(0, pieceToMove + 1);
             var to = move.Substring(pieceToMove + 1);
 
-            this.VerifyPiece(from, to);
-            Console.WriteLine(from + " to " + to);
+            int valid = this.VerifyPiece(from, to);
+            Console.WriteLine(from + " to " + to + " is " + (valid == 1 ? "valid" : "invalid") + ".");
+
+            return valid;
         }
-        return 1;
+        return 0;
     }
 
     public int VerifyPiece(string fromSquare, string toSquare)
@@ -75,6 +77,11 @@ public class MoveValidator
         //0 means empty space
         int valid = this.CheckMove(fromPiece, fromColInt, fromRowInt, toColInt, toRowInt);
         //If valid move, implement function to move
+        if (valid == 1)
+        {
+            this.chessBoard.chessBoard[toRowInt, toColInt] = this.chessBoard.chessBoard[fromRowInt, fromColInt];
+            this.chessBoard.chessBoard[fromRowInt, fromColInt] = 0;
+        }
         return valid;
     }
 
@@ -99,8 +106,14 @@ public class MoveValidator
                 else
                 {
                     //Black, pawns move DOWN, i.e. add rows
+                    int difference = toColInt - fromColInt;
+                    //Reject move if moving upwards, more than 2 spaces downward, 
+                    //or moving more than 1 space down when not on starting square.
+                    if (difference < 1 || difference > 2 || (fromColInt != 1 && difference > 1))
+                        return 0;
+                    else
+                        return 1;
                 }
-                return 1;
         }
         return 0;
     }
