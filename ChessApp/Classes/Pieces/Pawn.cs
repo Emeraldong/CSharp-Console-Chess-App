@@ -38,7 +38,7 @@ public class Pawn : ChessPiece
         //If present and is pawn, check their "canBeEnPassant" flag.
         if (leftCheck == enemyPawn || rightCheck == enemyPawn)
         {
-            
+            //check if pawn object has "canBeEnPassant" flag set to 1;
         }
         return 0;
     }
